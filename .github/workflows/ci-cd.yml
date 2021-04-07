@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.rid }}
-          path: src/BoundfoxStudios.UnityProjectPacker/src/BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}
+          path: src/BoundfoxStudios.UnityProjectPacker/.deploy/BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}
           retention-days: 1
   
   release:
