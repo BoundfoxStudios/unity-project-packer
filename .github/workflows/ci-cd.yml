@@ -33,6 +33,7 @@ jobs:
         working-directory: src/BoundfoxStudios.UnityProjectPacker
         
       - name: Permissions
+        if: ${{ matrix.os != 'win-x64' }}
         run: chmod +x ./BoundfoxStudios.UnityProjectPacker
         working-directory: src/BoundfoxStudios.UnityProjectPacker/.deploy
 
@@ -70,6 +71,7 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
           files: |
             BoundfoxStudios.UnityProjectPacker-linux-x64
             BoundfoxStudios.UnityProjectPacker-win-x64.exe
