@@ -15,6 +15,7 @@ jobs:
             rid: osx-x64
           - os: windows-latest
             rid: win-x64
+            fileExt: .exe
           - os: ubuntu-latest
             rid: linux-x64
 
@@ -36,14 +37,14 @@ jobs:
         working-directory: src/BoundfoxStudios.UnityProjectPacker/.deploy
 
       - name: Rename
-        run: mv BoundfoxStudios.UnityProjectPacker BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}
+        run: mv BoundfoxStudios.UnityProjectPacker${{ matrix.fileExt }} BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}${{ matrix.fileExt }}
         working-directory: src/BoundfoxStudios.UnityProjectPacker/.deploy
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.rid }}
-          path: src/BoundfoxStudios.UnityProjectPacker/.deploy/BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}
+          path: src/BoundfoxStudios.UnityProjectPacker/.deploy/BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}${{ matrix.fileExt }}
           retention-days: 1
   
   release:
@@ -71,5 +72,5 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             BoundfoxStudios.UnityProjectPacker-linux-x64
-            BoundfoxStudios.UnityProjectPacker-win-x64
+            BoundfoxStudios.UnityProjectPacker-win-x64.exe
             BoundfoxStudios.UnityProjectPacker-osx-x64
