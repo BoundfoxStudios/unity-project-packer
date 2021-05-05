@@ -15,7 +15,7 @@ namespace BoundfoxStudios.UnityProjectPacker
       NotAValidUnityProject = 3,
     }
 
-    public event Action<string> Log;
+    public event Action<string, bool> Log;
 
     private string[] _unityFolders = new[] { "Assets", "ProjectSettings", "Packages" };
 
@@ -69,13 +69,14 @@ namespace BoundfoxStudios.UnityProjectPacker
 
                 bytesWritten += file.Length;
 
-                OnLog($"Bytes written: {bytesWritten}/{totalBytes}");
+                OnLog($"Bytes written: {bytesWritten}/{totalBytes}", true);
               }
             }
           }
         }
       }
 
+      OnLog("");
       OnLog("Done! Please upload the following file:");
       OnLog(finalFileName);
       return PackResult.Ok;
@@ -88,7 +89,7 @@ namespace BoundfoxStudios.UnityProjectPacker
         basePath = basePath[..^1];
       }
 
-      return basePath.Split('/').Last();
+      return basePath.Split(Path.PathSeparator).Last();
     }
 
     private bool IsUnityProject(string basePath)
@@ -99,9 +100,9 @@ namespace BoundfoxStudios.UnityProjectPacker
     private FileInfo[] GetSourceFiles(string basePath) =>
       _unityFolders.SelectMany(folder => new DirectoryInfo(Path.Combine(basePath, folder)).GetFiles("*", SearchOption.AllDirectories)).ToArray();
 
-    protected virtual void OnLog(string message)
+    protected virtual void OnLog(string message, bool inplace = false)
     {
-      Log?.Invoke(message);
+      Log?.Invoke(message, inplace);
     }
   }
 }

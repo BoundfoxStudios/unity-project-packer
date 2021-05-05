@@ -17,7 +17,18 @@ namespace BoundfoxStudios.UnityProjectPacker
       Console.WriteLine();
 
       var unityProjectPacker = new UnityProjectPacker();
-      unityProjectPacker.Log += Console.WriteLine;
+      unityProjectPacker.Log += (message, inplace) =>
+      {
+        if (inplace)
+        {
+          Console.CursorLeft = 0;
+          Console.Write(message);
+        }
+        else
+        {
+          Console.WriteLine(message);
+        }
+      };
 
       var currentPath = DetermineDirectory(args);
 
