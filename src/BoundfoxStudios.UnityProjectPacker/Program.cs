@@ -24,10 +24,15 @@ namespace BoundfoxStudios.UnityProjectPacker
       if (string.IsNullOrWhiteSpace(currentPath))
       {
         Console.WriteLine("Could not determine current path.");
+        Console.ReadLine();
         return 1;
       }
 
-      return (int) await unityProjectPacker.Pack(currentPath);
+      var exitCode = (int) await unityProjectPacker.Pack(currentPath);
+      
+      Console.ReadLine();
+
+      return exitCode;
     }
 
     private static string DetermineDirectory(string[] args)
