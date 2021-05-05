@@ -84,7 +84,7 @@ namespace BoundfoxStudios.UnityProjectPacker
 
     private string GetProjectName(string basePath)
     {
-      if (basePath[^1] == '/')
+      if (basePath[^1] == Path.PathSeparator)
       {
         basePath = basePath[..^1];
       }
