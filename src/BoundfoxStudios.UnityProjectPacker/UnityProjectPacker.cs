@@ -84,12 +84,12 @@ namespace BoundfoxStudios.UnityProjectPacker
 
     private string GetProjectName(string basePath)
     {
-      if (basePath[^1] == Path.PathSeparator)
+      if (basePath[^1] == Path.DirectorySeparatorChar)
       {
         basePath = basePath[..^1];
       }
 
-      return basePath.Split(Path.PathSeparator).Last();
+      return basePath.Split(Path.DirectorySeparatorChar).Last();
     }
 
     private bool IsUnityProject(string basePath)
