@@ -31,7 +31,7 @@ jobs:
           dotnet-version: '5.0.201'
 
       - name: Publish
-        run: dotnet publish -c Release -r ${{ matrix.rid }} -o .deploy -p:PublishSingleFile=true --self-contained true -p:PublishReadyToRun=true -p:PublishTrimmed=true
+        run: dotnet publish -c Release -r ${{ matrix.rid }} -o .deploy -p:PublishSingleFile=true --self-contained true -p:PublishReadyToRun=true -p:PublishTrimmed=true -p:IncludeAllContentForSelfExtract=true
         working-directory: src/BoundfoxStudios.UnityProjectPacker
         
       - name: Permissions
