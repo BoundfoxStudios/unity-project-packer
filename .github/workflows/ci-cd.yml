@@ -11,13 +11,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            rid: osx-x64
+#           MacOS not working due to app layouting issue
+#          - os: macos-latest
+#            rid: osx-x64
           - os: windows-latest
             rid: win-x64
             fileExt: .exe
-          - os: ubuntu-latest
-            rid: linux-x64
+#           I think our target group does not use Unity on Linux
+#          - os: ubuntu-latest
+#            rid: linux-x64
 
     steps:
       - name: Checkout repository
@@ -52,15 +54,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download linux-x64
-        uses: actions/download-artifact@v2
-        with:
-          name: linux-x64
-      
-      - name: Download osx-x64
-        uses: actions/download-artifact@v2
-        with:
-          name: osx-x64
+#      - name: Download linux-x64
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: linux-x64
+#      
+#      - name: Download osx-x64
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: osx-x64
       
       - name: Download win-x64
         uses: actions/download-artifact@v2
@@ -73,6 +75,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           files: |
-            BoundfoxStudios.UnityProjectPacker-linux-x64
+#            BoundfoxStudios.UnityProjectPacker-linux-x64
             BoundfoxStudios.UnityProjectPacker-win-x64.exe
-            BoundfoxStudios.UnityProjectPacker-osx-x64
+#            BoundfoxStudios.UnityProjectPacker-osx-x64
