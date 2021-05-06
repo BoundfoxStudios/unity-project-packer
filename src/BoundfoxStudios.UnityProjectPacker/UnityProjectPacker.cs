@@ -55,7 +55,8 @@ namespace BoundfoxStudios.UnityProjectPacker
         {
           foreach (var file in sourceFiles)
           {
-            var entryName = file.FullName.Substring(basePath.Length);
+            // in zipfile we explicitly need / as a separator
+            var entryName = file.FullName.Substring(basePath.Length).Replace(Path.DirectorySeparatorChar, '/');
 
             var zipEntry = zipArchive.CreateEntry(entryName);
 
