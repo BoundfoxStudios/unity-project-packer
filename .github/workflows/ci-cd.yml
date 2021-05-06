@@ -42,12 +42,16 @@ jobs:
       - name: Rename
         run: mv BoundfoxStudios.UnityProjectPacker${{ matrix.fileExt }} BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}${{ matrix.fileExt }}
         working-directory: src/BoundfoxStudios.UnityProjectPacker/.deploy
+        
+      - name: Zip
+        run: tar.exe -a -c -f BoundfoxStudios.UnityProjectPacker.zip BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}${{ matrix.fileExt }}
+        working-directory: src/BoundfoxStudios.UnityProjectPacker/.deploy
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.rid }}
-          path: src/BoundfoxStudios.UnityProjectPacker/.deploy/BoundfoxStudios.UnityProjectPacker-${{ matrix.rid }}${{ matrix.fileExt }}
+          path: src/BoundfoxStudios.UnityProjectPacker/.deploy/BoundfoxStudios.UnityProjectPacker.zip
           retention-days: 1
   
   release:
@@ -76,7 +80,7 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           files: |
-            BoundfoxStudios.UnityProjectPacker-win-x64.exe
+            BoundfoxStudios.UnityProjectPacker.zip
             
 #            BoundfoxStudios.UnityProjectPacker-linux-x64
 #            BoundfoxStudios.UnityProjectPacker-osx-x64
